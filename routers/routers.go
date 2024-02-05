@@ -5,11 +5,13 @@ import (
 	v1 "gin/routers/api/v1"
 	"gin/routers/client"
 	"gin/routers/middleware"
+	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
 
-func RegisterHandler() {
+func RegisterHandler() *http.Server {
 	g := gin.Default()
 	g.Use(middleware.AccessLog())
 	apiV1 := g.Group("api/v1")
@@ -25,8 +27,14 @@ func RegisterHandler() {
 		apiV1.GET("scan/actions", s.Actions)
 		apiV1.GET("cron/actions", c.Acitons)
 	}
-
-	// go http.ListenAndServe(":8000", g)
+	// 同时监听两个端口
+	// 设置http-server
 	go g.Run(":8001")
+	return &http.Server{
+		Addr:         ":8000",
+		ReadTimeout:  5 * time.Second,
+		WriteTimeout: 10 * time.Second,
+		Handler:      g,
+	}
 
 }
