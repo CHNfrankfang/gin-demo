@@ -1,0 +1,1 @@
+{"time":"2024-02-05T20:31:50+08:00","level":"INFO","source":{"function":"gin/routers/middleware.AccessLog.func1","file":"/Users/didi/Documents/goProject/src/gin/routers/middleware/access.go","line":23},"msg":"enter middleware","access1":{"trace_id":"unique key 18793","latency":"8007 ms"}}
